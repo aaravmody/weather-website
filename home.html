@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Weather app</title>
+    <style>
+        *{
+    padding:0;
+    margin:0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 23vh;
+}
+
+.box{
+    width: 50vh;
+    height: 60vh;
+    border-radius: 0.5rem;
+    background: lightblue;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 10vh;
+}
+.info{
+    position: relative;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+.loc{ 
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 800;
+    font-size: 3rem;
+}  
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="info">
+            <h2 class="loc"> <i class="fas fa-street-view" style="color: white"></i> {%location%}</h2>
+            <p id="Date"> Wed | 27 Feb</p>
+            <h1 class="temp">{%tempval%} &deg;F</h1>
+            <h3 class="tempminmax"> Min {%tempmin%} &deg;F| Max {%tempmax%} &deg;F </h3>
+        </div>
+    </div>
+<div>
+    <script>
+        const curDate=document.getElementById('Date');
+        let weathercon=document.getElementById('icon');
+
+        const tempstatus = "clouds";
+
+        const currentday = () => {
+            const weekday = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+            let currenttime= new Date();
+            let day = weekday[currenttime.getDay()];
+            return day;
+        }
+        const currenttime = () => {
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            var current=new Date();
+            var month = months[current.getMonth()+1];
+            var day= current.getDate();
+
+            var hours = current.getHours();
+            var mins = current.getMinutes();
+
+            let period ="AM";
+            if(hours>11)
+            {
+                period="PM"
+            }
+            if (hours>12)
+            {
+                hours-=12;
+            }
+            if(mins<10)
+            {
+                mins='0'+mins;
+            }
+            return `${day}  ${month}  | ${hours}:${mins} ${period}`
+        }
+        curDate.innerHTML = currentday() + " | " + currenttime();
+    </script>
+</body>
+</html>
